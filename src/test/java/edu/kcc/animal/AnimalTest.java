@@ -8,37 +8,21 @@ package edu.kcc.animal;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-=======
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
->>>>>>> d7cf15101410e1b1e1258289ec83185362337d79
+import junit.framework.TestCase;
+
 /**
  *
- * @author marchauschildt
+ * @author Owner
  */
 public class AnimalTest {
     
-<<<<<<< HEAD
-=======
     private Animal instance;
 
     @Before
->>>>>>> d7cf15101410e1b1e1258289ec83185362337d79
     public void setUp() {
         instance = new Animal();
     }
     
-<<<<<<< HEAD
-    // TODO - Need testGetId method
-   
-=======
     // TODO
     @org.junit.Test
     public void testGetId() {
@@ -58,7 +42,6 @@ public class AnimalTest {
     }
 
     @org.junit.Test
->>>>>>> d7cf15101410e1b1e1258289ec83185362337d79
     public void testGetName() {
         setUp();
         String expected = "Unknown";
@@ -112,14 +95,6 @@ public class AnimalTest {
         fail("The test case is a prototype.");
     }
     
-<<<<<<< HEAD
-    // TODO - Need testGetAge method (Ramiro)
-    public void testGetAge(){
-        setUp();
-        int expResult = 0;
-        int result = animal.getAge();
-        assertEquals(expResult, result);
-=======
     // TODO
     @org.junit.Test
     public void testSetSpeciesCatToDogBad() {
@@ -148,7 +123,6 @@ public class AnimalTest {
     @org.junit.Test
     public void testSetAgeNegativeBad() {
         fail("The test case is a prototype.");
->>>>>>> d7cf15101410e1b1e1258289ec83185362337d79
     }
     
     // TODO
@@ -317,16 +291,6 @@ public class AnimalTest {
         fail("The test case is a prototype.");
     }
     
-<<<<<<< HEAD
-    // TODO - Need testGetLastFeedingTime method (Ramiro)
-        public void testGetLastFeedingTime()
-        {
-            setUp();
-            LocalDateTime expResult = LocalDateTime.of(2020, 10, 1, 23, 59);
-            LocalDateTime result = animal.getLastFeedingTime();
-            assertEquals(expResult, result);
-        }
-=======
     // TODO
     @org.junit.Test
     public void testCompareToCatAlphatoCatBeta() {
@@ -345,5 +309,4 @@ public class AnimalTest {
         fail("The test case is a prototype.");
     }
     
->>>>>>> d7cf15101410e1b1e1258289ec83185362337d79
 }
