@@ -8,16 +8,6 @@ package edu.kcc.animal;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-import junit.framework.TestCase;
-
-/**
- *
- * @author Owner
- */
-public class AnimalTest {
-    
-=======
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -29,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class AnimalTest {
->>>>>>> beb5d7813502e177aa13112c077d042b34c2d44e
     private Animal instance;
 
     @BeforeClass
@@ -121,25 +110,18 @@ public class AnimalTest {
         fail("The test case is a prototype.");
     }
     
-<<<<<<< HEAD
     // TODO
     @org.junit.Test
     public void testSetSpeciesCatToDogBad() {
         fail("The test case is a prototype.");
-=======
 
+    }
+    
     public void testGetAge(){
         setUp();
         int expResult = 0;
         int result = instance.getAge();
         assertEquals(expResult, result);
->>>>>>> beb5d7813502e177aa13112c077d042b34c2d44e
-    }
-    
-    // TODO
-    @org.junit.Test
-    public void testSetSpeciesCatToDogBad() {
-        fail("The test case is a prototype.");
     }
 
     // TODO
@@ -158,9 +140,7 @@ public class AnimalTest {
     
     @org.junit.Test
     public void testSetAgeNegativeBad() {
-<<<<<<< HEAD
         fail("The test case is a prototype.");
-=======
         try {
             setUp();
             instance.setAge(-10);
@@ -168,7 +148,6 @@ public class AnimalTest {
         } catch (Exception ex) {
             assertTrue(true);
         }
->>>>>>> beb5d7813502e177aa13112c077d042b34c2d44e
     }
     
 
@@ -398,11 +377,7 @@ public class AnimalTest {
         int result = dog.compareTo(cat);
         assertTrue(result==1, "failed compare dog to cat");
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> beb5d7813502e177aa13112c077d042b34c2d44e
     // TODO
     @org.junit.Test
     public void testCompareToCatAlphatoCatBeta() {

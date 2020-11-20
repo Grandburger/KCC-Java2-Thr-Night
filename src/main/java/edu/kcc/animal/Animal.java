@@ -65,7 +65,7 @@ public class Animal implements Comparable<Animal> {
     // Only allow it to change if it's "0". 
     // Do not allow an id to be set if the id is already in the idList
     // TODO: Need idValidator method (Nate)
-    private void idValidator(String id) {
+    void idValidator(String id) {
         if (idList.indexOf(id) >= 0) {
             throw new IllegalArgumentException("The id enterd is "
                     + "already taken");
