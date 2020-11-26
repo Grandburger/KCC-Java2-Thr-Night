@@ -1,4 +1,4 @@
-package edu.kcc.ui;
+package edu.kcc.animal.ui;
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.kcc.taskhandler;
+package edu.kcc.animal.taskhandler;
 
 import edu.kcc.animal.Animal;
+import edu.kcc.animal.data.AnimalDAO;
+import edu.kcc.animal.data.AnimalDataException;
+import edu.kcc.animal.ui.UIUtility;
 import java.util.List;
 
 /**
@@ -14,7 +17,7 @@ import java.util.List;
  */
 public class ShowAllAnimals {
     
-    public void handleTask(DAOPattern dao) {
+    public void handleTask(AnimalDAO dao) {
         UIUtility.showSectionTitle("Show All Animal Records");
         
         try {
@@ -22,7 +25,7 @@ public class ShowAllAnimals {
             for (Animal animal : animals) {
                 UIUtility.showMessage("\t" + animal);
             }
-        } catch (AnimalException ex) {
+        } catch (AnimalDataException ex) {
             UIUtility.showErrorMessage(ex.getMessage(), true);
         }
         
@@ -30,7 +33,7 @@ public class ShowAllAnimals {
         UIUtility.pressEnterToContinue();
     }
     
-    public List<Animal> getAllAnimals(DAOPattern dao) throws AnimalException {
+    public List<Animal> getAllAnimals(AnimalDAO dao) throws AnimalDataException {
         return dao.getAllAnimals();
     }
 }

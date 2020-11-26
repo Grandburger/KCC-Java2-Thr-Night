@@ -138,21 +138,12 @@ public class AnimalTest {
         }
     }
     
-    // TODO
-    @org.junit.Test
-    public void testSetSpeciesCatToDogBad() {
-        fail("The test case is a prototype.");
-
-    }
-    
     public void testGetAge(){
         setUp();
         int expResult = 0;
         int result = instance.getAge();
         assertEquals(expResult, result);
     }
-<<<<<<< HEAD
-=======
     
     // TODO
     @org.junit.Test
@@ -166,7 +157,6 @@ public class AnimalTest {
             assertEquals("cat", instance.getSpecies());
         }
     }
->>>>>>> 20cb4d9bdd7e8b53e772151d4867fff992bf0fa6
 
     // TODO
     @org.junit.Test
@@ -307,8 +297,7 @@ public class AnimalTest {
     // TODO
     @org.junit.Test
     public void testSetWeightToZeroGood() {
-        BigDecimal weight = 0;
-        animalWeight instance = new animalWeight();
+        BigDecimal weight = new BigDecimal(0);
         instance.setWeight(weight);
         assertEquals(weight, instance.getWeight());
     }
@@ -316,8 +305,7 @@ public class AnimalTest {
     // TODO
     @org.junit.Test
     public void testSetWeightTo1000Good() {
-        BigDecimal weight = 1000;
-        animalWeight instance = new animalWeight();
+        BigDecimal weight = new BigDecimal(1000);
         instance.setWeight(weight);
         assertEquals(weight, instance.getWeight());
     }

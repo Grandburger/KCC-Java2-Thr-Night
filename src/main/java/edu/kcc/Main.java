@@ -5,7 +5,7 @@
  */
 package edu.kcc;
 
-import edu.kcc.ui.UIUtility;
+import edu.kcc.animal.ui.UIUtility;
 import edu.kcc.animal.Animal;
 
 /**
