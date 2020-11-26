@@ -58,56 +58,84 @@ public class AnimalTest {
 
     @org.junit.Test
     public void testGetName() {
-        setUp();
         String expected = "Unknown";
         String actual = instance.getName();
         assertEquals(expected, actual);
     }
 
-    // TODO
     @org.junit.Test
     public void testSetName() {
-        fail("The test case is a prototype.");
+        instance.setName("Spot");
+        assertEquals("Spot", instance.getName());
     }
 
-    // TODO
     @org.junit.Test
     public void testGetGender() {
-        fail("The test case is a prototype.");
+        String expected = "Unknown";
+        String actual = instance.getGender();
+        assertEquals(expected, actual);
     }
-
-    // TODO
+  
     @org.junit.Test
     public void testSetGender() {
-        fail("The test case is a prototype.");
+        setUp();
+        String expected = "male";
+        instance.setGender("male");
+        assertEquals(expected, instance.getGender());
     }
     
     // TODO
     public void testSetGenderNotMaleFemaleBad() {
-        fail("The test case is a prototype.");
+        setUp();
+        try{
+            instance.setGender("Hoopla");
+            fail("testSetGenderNotMaleFemaleBad failed");
+        }catch (Exception ex){
+            assertEquals( "Unknown", instance.getGender());      
+        }
     }
     
     // TODO
     public void testSetGenderMaleToFemaleBad() {
-        fail("The test case is a prototype.");
+        setUp();
+        instance.setGender("male");
+        String expected = "male";
+        try{
+            instance.setGender("female");
+            fail("testSetGenderMaleToFemaleBad failed");
+        }catch (Exception ex){
+            assertEquals( expected, instance.getGender());      
+        }
     }
 
     // TODO
     @org.junit.Test
     public void testGetSpecies() {
-        fail("The test case is a prototype.");
+        setUp();
+        String expected = "cat";
+        instance.setSpecies("cat");
+        assertEquals(expected, instance.getSpecies());
     }
 
     // TODO
     @org.junit.Test
     public void testSetSpecies() {
-        fail("The test case is a prototype.");
+        setUp();
+        String expected = "dog";
+        instance.setSpecies("dog");
+        assertEquals(expected, instance.getSpecies());
     }
     
     // TODO
     @org.junit.Test
     public void testSetSpeciesNotCatorDogBad() {
-        fail("The test case is a prototype.");
+        setUp();
+        try{
+            instance.setSpecies("Dolphin");
+            fail("Species was allowed to be something that isnt cat or dog");
+        }catch (Exception ex){
+            assertEquals("Unknown", instance.getSpecies());
+        }
     }
     
     // TODO
@@ -123,6 +151,22 @@ public class AnimalTest {
         int result = instance.getAge();
         assertEquals(expResult, result);
     }
+<<<<<<< HEAD
+=======
+    
+    // TODO
+    @org.junit.Test
+    public void testSetSpeciesCatToDogBad() {
+        setUp();
+        instance.setSpecies("cat");
+        try{
+            instance.setSpecies("dog");
+            fail("Species was allowed to switch from cat to do");
+        }catch (Exception ex){
+            assertEquals("cat", instance.getSpecies());
+        }
+    }
+>>>>>>> 20cb4d9bdd7e8b53e772151d4867fff992bf0fa6
 
     // TODO
     @org.junit.Test
@@ -222,19 +266,34 @@ public class AnimalTest {
     // TODO
     @org.junit.Test
     public void testSetLegsTo0Good() {
-        fail("The test case is a prototype.");
+        setUp();
+        instance.setLegs(0);
+        int expResult = 0;
+        assertEquals(expResult, instance.getLegs());
     }
     
     // TODO
     @org.junit.Test
     public void testSetLegsTo5Bad() {
-        fail("The test case is a prototype.");
+        setUp();
+        try{
+            instance.setLegs(5);
+            fail("Test failed, 5 or more legs can not be allowed.");
+        }catch(Exception ex){
+            assertTrue(true);
+        }
     }
     
     // TODO
     @org.junit.Test
     public void testSetLegsToNegativeBad() {
-        fail("The test case is a prototype.");
+        setUp();
+        try{
+            instance.setLegs(-1);
+            fail("Test failed, animals can not have negative legs.");
+        }catch(Exception e){
+            assertTrue(true);
+        }
     }
 
     @org.junit.Test
@@ -248,14 +307,19 @@ public class AnimalTest {
     // TODO
     @org.junit.Test
     public void testSetWeightToZeroGood() {
-        fail("The test case is a prototype.");
+        BigDecimal weight = 0;
+        animalWeight instance = new animalWeight();
+        instance.setWeight(weight);
+        assertEquals(weight, instance.getWeight());
     }
     
     // TODO
     @org.junit.Test
     public void testSetWeightTo1000Good() {
-        
-        fail("The test case is a prototype.");
+        BigDecimal weight = 1000;
+        animalWeight instance = new animalWeight();
+        instance.setWeight(weight);
+        assertEquals(weight, instance.getWeight());
     }
     
     // TODO
@@ -425,7 +489,7 @@ public class AnimalTest {
         System.out.println("idValidator");
         String id = "";
         Animal instance = new Animal();
-        instance.idValidator(id);
+        //instance.idValidator(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

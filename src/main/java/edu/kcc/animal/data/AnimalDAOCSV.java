@@ -49,7 +49,7 @@ public class AnimalDAOCSV implements AnimalDAO{
                     throw new AnimalDataException(nfe.getMessage()
                             + "CSV Line " + lineCount);
                 }
-                fixed = Boolean.toString(fields[5]);
+                fixed = Boolean.parseBoolean(fields[5]);
                 try{
                     legs = Integer.parseInt(fields[6]);
                 } catch(NumberFormatException nfe){
@@ -71,10 +71,15 @@ public class AnimalDAOCSV implements AnimalDAO{
         try(PrintWriter writer = new PrintWriter(new File(FILE_NAME))){
             String line;
             for (Animal animal : animals) {
-                line = car.getLicensePlate() + ","
-                        + car.getMake() + ","
-                        + car.getModel() + ","
-                        + car.getModelYear();
+                line = animal.getId() + ","
+                        + animal.getName() + ","
+                        + animal.getSpecies() + ","
+                        + animal.getGender() + ","
+                        + animal.getFixed() + ","
+                        + animal.getLegs() + ","
+                        + animal.getWeight() + ","
+                        + animal.getDateAdded() + ","
+                        + animal.getLastFeedingTime();
                 writer.println(line);
             }
         } catch (FileNotFoundException ex) {
@@ -82,94 +87,105 @@ public class AnimalDAOCSV implements AnimalDAO{
         }
     }
     
-    private void verifyCarList() throws AnimalDataException {
+    private void verifyAnimalList() throws AnimalDataException {
         if(null == animals){
             readFromFile();
         }
     }
 
     @Override
-    public void createCarRecord(Car car) throws AnimalDataException {
-        verifyCarList();
-        // Look to see if there is already a car with the same license plate
+    public void createAnimalRecord(Animal animal) throws AnimalDataException {
+        verifyAnimalList();
+        // Look to see if there is already a animal with the same animal id
         // value
-        Car checkCar = getCarByLicensePlate(car.getLicensePlate());
-        // If there was a matching car, throw an exception.  The license plate
+        Animal checkAnimal = getAnimalById(animal.getId());
+        // If there was a matching animal, throw an exception.  The animal id
         // is used as a unique identifier in this example.
-        if(null != checkCar){
-            throw new AnimalDataException("License Plates must be unique.");
+        if(null != checkAnimal){
+            throw new AnimalDataException("Animal Id must be unique.");
         }
-        // No other car has the same license plate, so we can add this Car to
+        // No other animal has the same animal id, so we can add this Animal to
         // the data store.
-        animals.add(car);
+        animals.add(animal);
         saveToFile();
     }
 
-    @Override
-    public Car getCarByLicensePlate(String licensePlate) throws AnimalDataException {
-        verifyCarList();
-        Car car = null;
-        for (Car car1 : animals) {
-            // See if the car has a matching license plate
-            if(car1.getLicensePlate().equals(licensePlate)){
-                // found a match, so it is the car we want
-                car = car1;
+    public Animal getAnimalById(int animalId) throws AnimalDataException {
+        verifyAnimalList();
+        Animal animal = null;
+        for (Animal animal1 : animals) {
+            // See if the animal has a matching animal id
+            if(animal1.getId().equals(animalId)){
+                // found a match, so it is the animal we want
+                animal = animal1;
                 // leave the loop
                 break;
             }
         }
-        return car;
+        return animal;
     }
 
     @Override
-    public ArrayList<Car> getAllCars() throws AnimalDataException {
-        verifyCarList();
+    public ArrayList<Animal> getAllAnimals() throws AnimalDataException {
+        verifyAnimalList();
         return animals;
     }
 
     @Override
-    public void updateCar(Car original, Car updated) throws AnimalDataException {
-        verifyCarList();
-        Car foundCar = null;
-        for (Car car : animals) {
-            if(car.equals(original)){
+    public void updateAnimal(Animal original, Animal updated) throws AnimalDataException {
+        verifyAnimalList();
+        Animal foundAnimal = null;
+        for (Animal animal : animals) {
+            if(animal.equals(original)){
                 // found a match!
-                foundCar = car;
+                foundAnimal = animal;
                 break;
             }
         }
-        if(null == foundCar){
+        if(null == foundAnimal){
             // did not find a match to the original!
             throw new AnimalDataException("Original record not found for update.");
         }
         // If no error, update all but the unique identifier
-        foundCar.setMake(updated.getMake());
-        foundCar.setModel(updated.getModel());
-        foundCar.setModelYear(updated.getModelYear());
+        foundAnimal.setId(updated.getId());
+        foundAnimal.setName(updated.getName());
+        foundAnimal.setSpecies(updated.getSpecies());
+        foundAnimal.setGender(updated.getGender());
+        foundAnimal.setAge(updated.getAge());
+        foundAnimal.setFixed(updated.getFixed());
+        foundAnimal.setLegs(updated.getLegs());
+        foundAnimal.setWeight(updated.getWeight());
+        foundAnimal.setDateAdded(updated.getDateAdded());
+        foundAnimal.setLastFeedingTime(updated.getLastFeedingTime());
         saveToFile();
     }
-
+    
     @Override
-    public void deleteCar(Car car) throws AnimalDataException {
-        deleteCar(car.getLicensePlate());
+    public void deleteAnimal(Animal animal) throws AnimalDataException {
+        deleteAnimal(animal.getId());
     }
 
     @Override
-    public void deleteCar(String licensePlate) throws AnimalDataException {
-        verifyCarList();
-        Car foundCar = null;
-        for (Car car : animals) {
-            if(car.getLicensePlate().equals(licensePlate)){
-                foundCar = car;
+    public void deleteAnimal(String animalName) throws AnimalDataException {
+        verifyAnimalList();
+        Animal foundAnimal = null;
+        for (Animal animal : animals) {
+            if(animal.getId().equals(animalName)){
+                foundAnimal = animal;
                 break;
             }
         }
-        if(null == foundCar){
+        if(null == foundAnimal){
             // did not find a match to the original!
             throw new AnimalDataException("Record not found for delete.");
         }
         // If no error, update all but the unique identifier
-        animals.remove(foundCar);
+        animals.remove(foundAnimal);
         saveToFile();
+    }
+
+    @Override
+    public Animal getAnimalById(String id) throws AnimalDataException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

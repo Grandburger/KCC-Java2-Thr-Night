@@ -77,7 +77,7 @@ public class Animal implements Comparable<Animal> {
 
     // TODO: Need getId method
     public String getId() {
-        return "";
+        return id;
     }
 
     // TODO: Call the validator method before assigning the value
@@ -121,6 +121,9 @@ public class Animal implements Comparable<Animal> {
 
     // TODO: Need genderValidator method - Only allow male and female. Only allow it to change if it's "Unknown".
     private void genderValidator(String gender) {
+        if(this.gender == null){
+            return;
+        }
         if(this.gender.compareTo("Unknown") != 0){
             throw new IllegalArgumentException("Gender has already been set");
         }
@@ -141,6 +144,9 @@ public class Animal implements Comparable<Animal> {
 
     // TODO: Need speciesValidator method - Only allow cat and dog. Only allow it to change if it's "Unknown".
     private void speciesValidator(String species) {
+        if(this.species == null){
+            return;
+        }
         if(this.species.compareTo("Unknown") != 0){
             throw new IllegalArgumentException("Species has already been set");
         }
