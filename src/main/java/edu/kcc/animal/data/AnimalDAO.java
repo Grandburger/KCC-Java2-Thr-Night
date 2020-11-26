@@ -12,11 +12,4 @@ public interface AnimalDAO {
     
     Animal getAnimalById(String id) throws AnimalDataException;
     
-    ArrayList<Animal> getAllAnimals() throws AnimalDataException;
-    
-    void updateAnimal(Animal original, Animal updated) throws AnimalDataException;
-    
-    void deleteAnimal(Animal animal) throws AnimalDataException;
-    
-    void deleteAnimal(String id) throws AnimalDataException;
 } //end of interface 
