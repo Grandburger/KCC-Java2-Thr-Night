@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Animal implements Comparable<Animal> {
 
-    private String id;
+    private int id;
     private static List<String> idList = new ArrayList<>();
     private String name;
     private String species;
@@ -30,11 +30,10 @@ public class Animal implements Comparable<Animal> {
     private LocalDateTime lastFeedingTime;
 
     // TODO: Need full constructor (Cash)
-    public Animal(String id, String name, String species,
+    public Animal(int id, String name, String species,
             String gender, int age, boolean fixed, int legs, BigDecimal weight,
             LocalDate dateAdded, LocalDateTime lastFeedingTime) {
         setId(id);
-        idList.add(id);
         setName(name);
         setSpecies(species);
         setGender(gender);
@@ -47,8 +46,7 @@ public class Animal implements Comparable<Animal> {
     }
 
     public Animal() {
-        id = "0";
-        idList.add(id);
+        id = 0;
         name = "Unknown";
         species = "Unknown";
         gender = "Unknown";
@@ -76,12 +74,12 @@ public class Animal implements Comparable<Animal> {
     }
 
     // TODO: Need getId method
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     // TODO: Call the validator method before assigning the value
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

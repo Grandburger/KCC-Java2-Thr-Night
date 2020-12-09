@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @author Ramiro Pena
  */
 
-public class AnimalDAOMySQL implements AnimalDAO {
+public class AnimalDAOMySQL {
     
     private static ArrayList<Animal> animals;
     private Connection buildConnection() throws SQLException {
@@ -39,7 +39,7 @@ public class AnimalDAOMySQL implements AnimalDAO {
         return DriverManager.getConnection(connectionString);
     }
 
-    private void readFromDatabase() throws AnimalDataException {
+    private void readFromDatabase(){
         try (Connection connection = buildConnection()) {
             if (connection.isValid(2)) {
                 animals = new ArrayList<>();
@@ -47,8 +47,8 @@ public class AnimalDAOMySQL implements AnimalDAO {
                    connection.prepareCall("CALL sp_get_an_Animal();");
                 ResultSet resultSet = callableStatement.executeQuery();
                 
-                String name;
                 int id;
+                String name;
                 String species;
                 String gender;
                 int age;
@@ -66,8 +66,8 @@ public class AnimalDAOMySQL implements AnimalDAO {
                     fixed = resultSet.getBoolean("Animal_Fixed");
                     legs = resultSet.getInt("Animal_Legs");
                     weight = resultSet.getBigDecimal("Animal_Weight");
-                    dateAdded = resultSet.getDate("Date_Added");
-                    lastFeedingTime = resultSet.getTime("Last_Feed_Time");
+                    dateAdded = resultSet.getDate("Date_Added").toLocalDate();
+                    lastFeedingTime = resultSet.getTimestamp("Last_Feed_Time").toLocalDateTime();
                     animals.add(new Animal(id, name, species, gender, age, 
                             fixed, legs, weight, dateAdded, lastFeedingTime));
                 }
@@ -85,36 +85,41 @@ public class AnimalDAOMySQL implements AnimalDAO {
 
     }
 
-    @Override
-    public void createAnimalRecord(Animal animal) throws AnimalDataException {
+    public void createAnimalRecord(Animal animal) throws Exception{
         // Verifies that the animal isn't in the ArrayList before adding it
         verifyAnimalList();
         Animal checkAnimal = getAnimalByName(animal.getName());
         if(null != checkAnimal){
-            throw new AnimalDataException("Animal IDs must be unique.");
+            throw new Exception("Animal IDs must be unique.");
         }
         animals.add(animal);
         // Creates new animal record in the database
         try{
             Connection conn = buildConnection();
             CallableStatement callableStatement
-                    = conn.prepareCall("CALL sp_add_Animal(?,?,?,?);");
-            callableStatement.setString(1, animal.getName());
-            callableStatement.setString(2, animal.getSpecies());
+                    = conn.prepareCall("CALL sp_add_Animal(?,?,?,?,?,?,?,?,?,?);");
+            callableStatement.setInt(1, animal.getId());
+            callableStatement.setString(2, animal.getName());
             callableStatement.setString(3, animal.getGender());
-            callableStatement.setInt(4, animal.getLegs());
-
+            callableStatement.setString(4, animal.getGender());
+            callableStatement.setInt(5, animal.getAge());
+            callableStatement.setBoolean(6, animal.getFixed());
+            callableStatement.setInt(7, animal.getLegs());
+            callableStatement.setBigDecimal(8, animal.getWeight());
+            callableStatement.setString(9, LocalDate.now().toString());
+            callableStatement.setString(10, LocalDateTime.now().toString());
+            
             callableStatement.execute();
             callableStatement.close();
             conn.close();
 
         } catch(SQLException ex){
-            throw new AnimalDataException(ex);
+            throw new Exception(ex);
         }
     }
 
-    @Override
-    public Animal getAnimalById(String name) throws AnimalDataException {
+    
+    public Animal getAnimalFromServer(String name) throws Exception{
         Animal animal = null;
         // Use this code to look up the animal from the ArrayList
         verifyAnimalList();
@@ -128,26 +133,47 @@ public class AnimalDAOMySQL implements AnimalDAO {
         try{
             Connection conn = buildConnection();
             CallableStatement callableStatement
-                    = conn.prepareCall("CALL sp_get_Animal_by_Animal_Name(?);");
+                    = conn.prepareCall("CALL sp_get_an_Animal(?);");
             callableStatement.setString(1, name);
 
             ResultSet resultSet = callableStatement.executeQuery();
-            String species;
-            String gender;
-            int age;
+                int id;
+                String species;
+                String gender;
+                int age;
+                boolean fixed;
+                int legs;
+                BigDecimal weight;
+                LocalDate dateAdded;
+                LocalDateTime lastFeedingTime;
             if(resultSet.next()){
-                species = resultSet.getString("Make");
+                id = resultSet.getInt("Animal_ID");
+                species = resultSet.getString("Animal_Species");
                 gender = resultSet.getString("Animal_Gender");
-                age = resultSet.getInt("Model_Year");
-                animal = new Animal(id, name, species, gender, age);
+                age = resultSet.getInt("Animal_Age");
+                fixed = resultSet.getBoolean("Animal_Fixed");
+                legs = resultSet.getInt("Animal_Legs");
+                weight = resultSet.getBigDecimal("Animal_Weight");
+                dateAdded = resultSet.getDate("Date_Added").toLocalDate();
+                lastFeedingTime = resultSet.getTimestamp("Last_Feed_Time").toLocalDateTime();
+                animal = new Animal(id, name, species, gender, age, fixed, legs,
+                weight, dateAdded, lastFeedingTime);
             }
             callableStatement.close();
             conn.close();
 
         } catch(SQLException ex){
-            throw new AnimalDataException(ex);
+            throw new Exception(ex);
         }
         return animal;
+    }
+
+    private void verifyAnimalList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Animal getAnimalByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

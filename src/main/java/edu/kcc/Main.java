@@ -6,60 +6,43 @@
 package edu.kcc;
 
 import edu.kcc.animal.ui.UIUtility;
-import edu.kcc.animal.Animal;
+import edu.kcc.animal.data.AnimalDAOMySQL;
 
 /**
  *
- * @author k0519415
- * @author Nathaniel Webber
+ * @author Ramiro Pena
  */
 public class Main {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        AnimalDAOMySQL animalServer = new AnimalDAOMySQL();
         UIUtility.showMessage("Program starting...");
         
         String menuTitle = "Main Menu";
         String[] menuOptions = {
-            "1) Add an Animal",
-            "2) Find an Animal",
-            "3) Show All Animals",
-            "4) Update an Animal",
-            "5) Delete an Animal",
-            "6) Exit"
+            "1) Find an Animal",
+            "2) Show Lookup History",
+            "3) Exit"
         };
         String prompt = "Your choice:";
         String errorMessage = "Invalid option.  Please try again.";
         String userChoice;
-        // AnimalDAO dao = AnimalDAO.getAnimalDAO();
         
         boolean working = true;
         while(working) {
             userChoice = UIUtility.showMenuOptions(menuTitle, prompt, menuOptions);
             switch(userChoice) {
                 case "1":
-                    // Add an Animal
-                    System.out.println("You added an Animal");
+                    animalServer.getAnimalFromServer(prompt);
                     break;
                 case "2":
-                    // Find an Animal
+                    // Show Search History
                     System.out.println("You found the Animal");
                     break;
                 case "3":
-                    // Show all Animals
-                    System.out.println("You're looking at all the Animals");
-                    break;
-                case "4":
-                    // Update an Animal
-                    System.out.println("You have updated the Animal");
-                    break;
-                case "5":
-                    // Delete an Animal
-                    System.out.println("You have deleted the Animal");
-                    break;
-                case "6":
                     working = false;
                     break;
                 default:
